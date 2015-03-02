@@ -1,5 +1,6 @@
 <?php
 
+// Constants
 const CACHE = "/.coven-cache";
 const COVEN_API = "http://api.coven.link/api/v1/posts"; 
 const NUM_POSTS = 20;
@@ -18,43 +19,74 @@ const COLOR_BREAK = '\033[0m';
 /**
  * Coven 
  * The only news you need
- * This is my first project done entirely in vi, so please bare with
- * me on the illogically place code. I am trying my best to use this
+ * This is my first project done entirely in vi, so please bear with
+ * me on the illogically placed code. I am trying my best to use this
  * project to learn it!
  */
  
+// Print fancy text
 echo '---------------------------------------' . PHP_EOL;
 echo '     Coven - The only news you need    ' . PHP_EOL;
 echo '---------------------------------------' . PHP_EOL;
 
-// Check cached JSON
+$jsonRaw = array();
+
+// Get data depending on whether cache exists or not 
 if(!file_exists(dirname(__FILE__) . CACHE)) {
+    $jsonRaw = getOnlineData(); 
+} else {
+    $jsonRaw = getLocalData();
+}
+
+// Convert string to json object
+$jsonObject = json_decode($jsonRaw);
+
+// Print the posts
+printPosts($jsonObject);
+
+function printPosts($jsonObjectInput) {
+    foreach($jsonObjectInput as $key => $value) {
+        echo '[ ' . $value->source_data->symbol . ' ] ' .  
+        ($key + 1) . '. ' . 
+        $value->title . 
+        PHP_EOL;
+        // TODO: think of a more elegant way to only show twenty results
+        if($key === NUM_POSTS) {
+            break;
+        }
+    }
+}
+
+/**
+ * getOnlineData 
+ * 
+ * @access public
+ * @return JSON array
+ */
+function getOnlineData() {
     // Get the file from api.coven.link if there's no cached version 
     $jsonRaw = file_get_contents(COVEN_API);
     file_put_contents(
         dirname(__FILE__) . CACHE, 
         $jsonRaw
     );
-} else {
+    return $jsonRaw;
+}
+
+/**
+ * getLocalData 
+ * 
+ * @access public
+ * @return JSON array
+ */
+function getLocalData() {
     // Otherwise, use the cached version
     $jsonRaw = file_get_contents(
         dirname(__FILE__) . CACHE
     );
+    return $jsonRaw;
 }
 
-// Convert string to json object
-$jsonObject = json_decode($jsonRaw);
-
-foreach($jsonObject as $key => $value) {
-    echo '[ ' . $value->source_data->symbol . ' ] ' .  
-    $value->position . '. ' . 
-    $value->title . 
-    PHP_EOL;
-    // TODO: think of a more elegant way to only show twenty results
-    if($key === NUM_POSTS) {
-        break;
-    }
-}
 /**
  * Map website-type to color-formatted type  
  * TODO: Ok.. It doesn't seem like this works on my Mac Terminal.
@@ -82,4 +114,3 @@ function colorize($symbol) {
     }
     return $coloredSymbol;
 }
-
