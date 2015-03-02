@@ -38,7 +38,7 @@ $jsonRaw = array();
 // Get data depending on whether cache exists or not 
 if(
     !file_exists(dirname(__FILE__) . CACHE) ||
-    $argv[1] === 'refresh'
+        $argv[1] === 'refresh'
 ) {
     echo "Getting you the latest news from Coven!" . PHP_EOL;
     $jsonRaw = getOnlineData(); 
@@ -51,6 +51,18 @@ $jsonObject = json_decode($jsonRaw);
 
 // Print the posts
 printPosts($jsonObject);
+
+if($agv[1] === 'open') {
+    // If the second argv isn't empty
+    if(!strlen($argv[2]) === 0) {
+        // TODO: open the link in a webbrowser. 
+    } else {
+        echo PHP_EOL . 
+            '[Error] Please enter a post # for me to open!' . 
+            PHP_EOL;
+        exit;
+    }
+}
 
 /**
  * Print the data to the console 

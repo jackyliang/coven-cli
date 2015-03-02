@@ -14,7 +14,7 @@ latest programming news.
 
     git clone https://github.com/jackyliang/coven-cli.git
     cd coven-cli
-    alias coven='php coven-cli.php'
+    alias coven='php coven-cli.php' # Optional, but recommended
 
 ### Usage
 
