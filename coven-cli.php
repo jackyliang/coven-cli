@@ -7,7 +7,7 @@
 // Constants
 const CACHE = "/.coven-cache";
 const COVEN_API = "http://api.coven.link/api/v1/posts"; 
-const NUM_POSTS = 20;
+const NUM_POSTS = 300;
 
 // Colors!!
 // I was going to match coven.link's way of representing the website
@@ -61,6 +61,7 @@ if($argv[1] === 'open') {
         // http://unix.stackexchange.com/questions/144047/how-does-xdg-open-do-its-work
         $index = $argv[2] - 1;
         exec('open ' . $jsonObject[$index]->url);
+        echo "Opening '" . $jsonObject[$index]->title . "'" . PHP_EOL;
         exit;
     } else {
         echo PHP_EOL . 
@@ -84,7 +85,7 @@ unset($jsonRaw);
 function printPosts($jsonObjectInput) {
     foreach($jsonObjectInput as $key => $value) {
         echo '[ ' . $value->source_data->symbol . ' ]' .  
-            '[ +' . $value->comment_count . ' ] ' .
+            '[ ⇡' . $value->comment_count . ' ] ' .
             ($key + 1) . '. ' . 
             $value->title . 
             PHP_EOL;
