@@ -1,7 +1,7 @@
-# Coven Command Line App
+# Coven CLI
 All the news a programmer needs in your command line!
 
-### What is this?
+### Introduction 
 
 Coven CLI is a command line version of the incredible programmer news
 aggregator [coven.link](coven.link) which aggregates news from the
@@ -20,12 +20,12 @@ latest programming news.
 
 Get the latest Coven headliners
 
-    coven
+    $ coven
 
 Refresh your feed
 
-    coven refresh
+    $ coven refresh
 
 Open a particular post in your browser
 
-    coven open [index]
+    $ coven open [index]
