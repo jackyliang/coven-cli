@@ -29,3 +29,11 @@ Refresh your feed
 Open a particular post in your browser [WIP]
 
     $ coven open [index]
+
+Get help
+
+    $ coven help
+    
+### Why?
+
+Because Coven is *awesome* (give the cool Coven dev [Ryan](https://github.com/goddamnyouryan) your love). Also, what better way to learn vi than to program something with it? This is my first project done entirely in vi. And I love it more and more each day.
