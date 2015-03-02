@@ -49,13 +49,19 @@ if(
 // Convert string to json object
 $jsonObject = json_decode($jsonRaw);
 
-// Print the posts
-printPosts($jsonObject);
-
-if($agv[1] === 'open') {
-    // If the second argv isn't empty
-    if(!strlen($argv[2]) === 0) {
-        // TODO: open the link in a webbrowser. 
+if($argv[1] === 'open') {
+    // If the second argv isn't empty and is an integer
+    if(
+        !strlen($argv[2]) == 0 &&
+        is_numeric($argv[2])
+    ) {
+        // open the link in a webbrowser. 
+        // Currently only supports Mac OS X
+        // TODO: Support other OS'
+        // http://unix.stackexchange.com/questions/144047/how-does-xdg-open-do-its-work
+        $index = $argv[2] - 1;
+        exec('open ' . $jsonObject[$index]->url);
+        exit;
     } else {
         echo PHP_EOL . 
             '[Error] Please enter a post # for me to open!' . 
@@ -64,6 +70,9 @@ if($agv[1] === 'open') {
     }
 }
 
+// Print the posts
+printPosts($jsonObject);
+
 /**
  * Print the data to the console 
  * @param  JSON The Coven JSON   
@@ -71,9 +80,9 @@ if($agv[1] === 'open') {
 function printPosts($jsonObjectInput) {
     foreach($jsonObjectInput as $key => $value) {
         echo '[ ' . $value->source_data->symbol . ' ] ' .  
-        ($key + 1) . '. ' . 
-        $value->title . 
-        PHP_EOL;
+            ($key + 1) . '. ' . 
+            $value->title . 
+            PHP_EOL;
         // TODO: think of a more elegant way to only show twenty results
         if($key === NUM_POSTS) {
             break;
