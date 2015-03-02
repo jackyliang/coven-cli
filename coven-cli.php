@@ -73,13 +73,18 @@ if($argv[1] === 'open') {
 // Print the posts
 printPosts($jsonObject);
 
+// Release from memory
+unset($jsonObject);
+unset($jsonRaw);
+
 /**
  * Print the data to the console 
  * @param  JSON The Coven JSON   
  */
 function printPosts($jsonObjectInput) {
     foreach($jsonObjectInput as $key => $value) {
-        echo '[ ' . $value->source_data->symbol . ' ] ' .  
+        echo '[ ' . $value->source_data->symbol . ' ]' .  
+            '[ +' . $value->comment_count . ' ] ' .
             ($key + 1) . '. ' . 
             $value->title . 
             PHP_EOL;
