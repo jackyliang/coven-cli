@@ -18,7 +18,7 @@ latest programming news.
 
 ### Usage
 
-Get the latest Coven headliners
+Get the latest Coven headline
 
     $ coven
 
@@ -26,11 +26,11 @@ Refresh your feed
 
     $ coven refresh
 
-Open a particular post in your browser
+Open post #2 in your browser 
 
-    $ coven open [post #] i.e. coven open 2 
+    $ coven open 2 
 
-Get help [WIP[
+Get help [WIP]
 
     $ coven help
     
