@@ -26,11 +26,11 @@ Refresh your feed
 
     $ coven refresh
 
-Open a particular post in your browser [WIP]
+Open a particular post in your browser
 
-    $ coven open [index]
+    $ coven open [post #] i.e. coven open 2 
 
-Get help
+Get help [WIP[
 
     $ coven help
     
