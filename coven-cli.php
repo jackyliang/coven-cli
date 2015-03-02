@@ -1,5 +1,9 @@
 <?php
 
+// TODO:
+// 1. 'coven refresh' command         --- DONE
+// 2. `coven open [index]` command
+
 // Constants
 const CACHE = "/.coven-cache";
 const COVEN_API = "http://api.coven.link/api/v1/posts"; 
@@ -32,7 +36,11 @@ echo '---------------------------------------' . PHP_EOL;
 $jsonRaw = array();
 
 // Get data depending on whether cache exists or not 
-if(!file_exists(dirname(__FILE__) . CACHE)) {
+if(
+    !file_exists(dirname(__FILE__) . CACHE) ||
+    $argv[1] === 'refresh'
+) {
+    echo "Getting you the latest news from Coven!" . PHP_EOL;
     $jsonRaw = getOnlineData(); 
 } else {
     $jsonRaw = getLocalData();
@@ -44,6 +52,10 @@ $jsonObject = json_decode($jsonRaw);
 // Print the posts
 printPosts($jsonObject);
 
+/**
+ * Print the data to the console 
+ * @param  JSON The Coven JSON   
+ */
 function printPosts($jsonObjectInput) {
     foreach($jsonObjectInput as $key => $value) {
         echo '[ ' . $value->source_data->symbol . ' ] ' .  
@@ -58,9 +70,7 @@ function printPosts($jsonObjectInput) {
 }
 
 /**
- * getOnlineData 
- * 
- * @access public
+ * Get the data from the Coven API 
  * @return JSON array
  */
 function getOnlineData() {
@@ -74,8 +84,7 @@ function getOnlineData() {
 }
 
 /**
- * getLocalData 
- * 
+ * Get the data from locally cached version 
  * @access public
  * @return JSON array
  */
@@ -92,7 +101,7 @@ function getLocalData() {
  * TODO: Ok.. It doesn't seem like this works on my Mac Terminal.
  * Investigate how I can get purdy colors on here too
  * @param char    $symbol        A website-type char 
- * @return string $coloredSymbol Colored website-type
+ * @return string $coloredSymbol A colored website-type char
  */
 function colorize($symbol) {
     $coloredSymbol = ''; 

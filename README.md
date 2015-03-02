@@ -1,2 +1,31 @@
-# coven-cli
-All the news a programmer needs in one place. [coven.link](coven.link)
+# Coven Command Line App
+All the news a programmer needs in your command line!
+
+### What is this?
+
+Coven CLI is a command line version of the incredible programmer news
+aggregator [coven.link](coven.link) which aggregates news from the
+Hacker News, /r/Programming, Lobsters, and Product Hunt.
+
+Coven CLI is super fast, using local caching to get the busy you the
+latest programming news. 
+
+### Installation
+
+    git clone https://github.com/jackyliang/coven-cli.git
+    cd coven-cli
+    alias coven='php coven-cli.php'
+
+### Usage
+
+Get the latest Coven headliners
+
+    coven
+
+Refresh your feed
+
+    coven refresh
+
+Open a particular post in your browser
+
+    coven open [index]
