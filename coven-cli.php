@@ -1,13 +1,27 @@
 <?php
 
-// TODO:
-// 1. 'coven refresh' command         --- DONE
-// 2. `coven open [index]` command
+/**
+ * Coven - The Only News You Need
+ * This is my first project done entirely in vi, so please bear with
+ * me on the illogically placed code. I am trying my best to use this
+ * project to learn it!
+ */
+
+/**
+ * TODO
+ * 1. 'coven refresh' command         --- DONE
+ * 2. 'coven open [index]' command    --- DONE
+ * 3. 'coven help' command            ---
+ * 4. Make colorize() work            ---
+ * 5. xdg-open for Linux distros      ---
+ * 6. Better ways to show n-results   --- 
+ * 7. last_refreshed in JSON object   ---
+ */
 
 // Constants
 const CACHE = "/.coven-cache";
 const COVEN_API = "http://api.coven.link/api/v1/posts"; 
-const NUM_POSTS = 300;
+const NUM_POSTS = 30;
 
 // Colors!!
 // I was going to match coven.link's way of representing the website
@@ -20,13 +34,6 @@ const RED = '[0;31m';
 const BROWN = '[0;33m';
 const COLOR_BREAK = '\033[0m';
 
-/**
- * Coven 
- * The only news you need
- * This is my first project done entirely in vi, so please bear with
- * me on the illogically placed code. I am trying my best to use this
- * project to learn it!
- */
  
 // Print fancy text
 echo '---------------------------------------' . PHP_EOL;
