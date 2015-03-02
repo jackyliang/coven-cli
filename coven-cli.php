@@ -29,5 +29,9 @@ if(!file_exists(dirname(__FILE__) . CACHE)) {
 // Convert string to json object
 $jsonObject = json_decode($jsonRaw);
 
-var_dump($jsonObject);
-
+foreach($jsonObject as $key => $value) {
+    echo '[ ' . $value->source_data->symbol . ' ] ' .  $value->position . '. ' . $value->title . PHP_EOL;
+    if($key === 20) {
+        break;
+    }
+}
