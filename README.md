@@ -26,6 +26,6 @@ Refresh your feed
 
     $ coven refresh
 
-Open a particular post in your browser
+Open a particular post in your browser [WIP]
 
     $ coven open [index]
