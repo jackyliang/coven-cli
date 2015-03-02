@@ -10,6 +10,11 @@ Hacker News, /r/Programming, Lobsters, and Product Hunt.
 Coven CLI is super fast, using local caching to get the busy you the
 latest programming news. 
 
+### Requirements
+
+PHP and Mac OS X (the `open` command is currently only supported in
+Mac OS X. When I have time I will add support for Linux distros) 
+
 ### Installation
 
     git clone https://github.com/jackyliang/coven-cli.git
