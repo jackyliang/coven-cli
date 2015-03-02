@@ -89,7 +89,7 @@ function printPosts($jsonObjectInput) {
             ($key + 1) . '. ' . 
             $value->title . 
             PHP_EOL;
-        // TODO: think of a more elegant way to only show twenty results
+        // TODO: think of a more elegant way to only show n-results
         if($key === NUM_POSTS) {
             break;
         }
@@ -101,6 +101,7 @@ function printPosts($jsonObjectInput) {
  * @return JSON array
  */
 function getOnlineData() {
+    // TODO: Add in a key called `last_refreshed:YYYY-mm-dd HH:MM:ss` 
     // Get the file from api.coven.link if there's no cached version 
     $jsonRaw = file_get_contents(COVEN_API);
     file_put_contents(

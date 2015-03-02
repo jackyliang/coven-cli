@@ -37,3 +37,17 @@ Get help [WIP]
 ### Why?
 
 Because Coven is *awesome* (give the cool Coven dev [Ryan](https://github.com/goddamnyouryan) your love). Also, what better way to learn vi than to program something with it? This is my first project done entirely in vi. And I love it more and more each day.
+
+### How to Contribute
+
+1. Check the [issues](https://github.com/jackyliang/coven-cli/issues)
+
+2. Check the `TODO`s in the code 
+
+3. Open an issue for bugs/featureRequests/feedback
+
+4. Fork it
+
+5. Write features
+
+6. Push and submit pull requests
