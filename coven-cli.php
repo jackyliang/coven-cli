@@ -62,17 +62,17 @@ if($argv[1] === 'open') {
         !strlen($argv[2]) == 0 &&
         is_numeric($argv[2])
     ) {
-        // open the link in a webbrowser. 
-        // Currently only supports Mac OS X
-        // TODO: Support other OS'
-        // http://unix.stackexchange.com/questions/144047/how-does-xdg-open-do-its-work
+        // Assign the user
         $index = $argv[2] - 1;
-        exec('open ' . $jsonObject[$index]->url);
+        $url = $jsonObject[$index]->url;
+
+        // Escape the input and open the URL in the browser
+        exec('open ' . escapeshellarg($url));
         echo "Opening '" . $jsonObject[$index]->title . "'" . PHP_EOL;
         exit;
     } else {
         echo PHP_EOL . 
-            '[Error] Please enter a post # for me to open!' . 
+            '[Error] Please enter a valid post # for me to open!' . 
             PHP_EOL;
         exit;
     }
