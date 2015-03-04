@@ -141,7 +141,7 @@ function getLocalData() {
 
 
 /**
- * Get the article from URL 
+ * Get the article from URL using Readability-PHP 
  * @param mixed $url 
  */
 function getArticle($url) {
@@ -151,6 +151,7 @@ function getArticle($url) {
     // This step is highly recommended - PHP's default HTML parser
     // often doesn't do a great job and results in strange output.
     if (function_exists('tidy_parse_string')) {
+        echo "TIDY EXISTS!!!";
         $tidy = tidy_parse_string($html, array(), 'UTF8');
         $tidy->cleanRepair();
         $html = $tidy->value;
