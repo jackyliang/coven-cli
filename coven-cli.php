@@ -1,5 +1,8 @@
 <?php
 
+require_once("lib/Readability.php");
+header('Content-Type: text/plain; charset=utf-8');
+
 /**
  * Coven - The Only News You Need
  * This is my first project done entirely in vi, so please bear with
@@ -56,20 +59,26 @@ if(
 // Convert string to json object
 $jsonObject = json_decode($jsonRaw);
 
-if($argv[1] === 'open') {
+if($argv[1] === 'open' || $argv[1] === 'opena') {
     // If the second argv isn't empty and is an integer
     if(
         !strlen($argv[2]) == 0 &&
-        is_numeric($argv[2])
+            is_numeric($argv[2])
     ) {
         // Assign the user
         $index = $argv[2] - 1;
         $url = $jsonObject[$index]->url;
 
-        // Escape the input and open the URL in the browser
-        exec('open ' . escapeshellarg($url));
-        echo "Opening '" . $jsonObject[$index]->title . "'" . PHP_EOL;
-        exit;
+        if ($argv[1] === 'open') {
+            // Escape the input and open the URL in the browser
+            exec('open ' . escapeshellarg($url));
+            echo "Opening '" . $jsonObject[$index]->title . "'" . PHP_EOL;
+            exit;
+        } else if ($argv[1] === 'opena') {
+            echo "Loading '" . $jsonObject[$index]->title . "'" . PHP_EOL;
+            getArticle($url); 
+            exit;
+        }
     } else {
         echo PHP_EOL . 
             '[Error] Please enter a valid post # for me to open!' . 
@@ -120,7 +129,6 @@ function getOnlineData() {
 
 /**
  * Get the data from locally cached version 
- * @access public
  * @return JSON array
  */
 function getLocalData() {
@@ -129,6 +137,56 @@ function getLocalData() {
         dirname(__FILE__) . CACHE
     );
     return $jsonRaw;
+}
+
+
+/**
+ * Get the article from URL 
+ * @param mixed $url 
+ */
+function getArticle($url) {
+    $html = file_get_contents($url); 
+
+    // If we've got Tidy, let's clean up input.
+    // This step is highly recommended - PHP's default HTML parser
+    // often doesn't do a great job and results in strange output.
+    if (function_exists('tidy_parse_string')) {
+        $tidy = tidy_parse_string($html, array(), 'UTF8');
+        $tidy->cleanRepair();
+        $html = $tidy->value;
+    }
+
+    // give it to Readability
+    $readability = new Readability($html, $url);
+    // print debug output? 
+    // useful to compare against Arc90's original JS version - 
+    // simply click the bookmarklet with FireBug's console window open
+    $readability->debug = false;
+    // convert links to footnotes?
+    $readability->convertLinksToFootnotes = true;
+    // process it
+    $result = $readability->init();
+    // does it look like we found what we wanted?
+    if ($result) {
+
+        echo "== Title =====================================\n";
+        echo $readability->getTitle()->textContent, "\n\n";
+        echo "== Body ======================================\n";
+        $content = $readability->getContent()->innerHTML;
+        // if we've got Tidy, let's clean it up for output
+        if(function_exists('tidy_parse_string')) {
+            $tidy = tidy_parse_string(
+                    $content, 
+                    array('indent'=>true, 'show-body-only' => true), 
+                    'UTF8'
+                );
+            $tidy->cleanRepair();
+            $content = $tidy->value;
+        }
+        echo $content;
+    } else {
+        echo 'Looks like we couldn\'t find the content. :(';
+    }
 }
 
 /**
