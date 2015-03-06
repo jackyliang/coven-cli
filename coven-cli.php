@@ -59,6 +59,7 @@ if(
 // Convert string to json object
 $jsonObject = json_decode($jsonRaw);
 
+// Open command
 if($argv[1] === 'open' || $argv[1] === 'opena') {
     // If the second argv isn't empty and is an integer
     if(
