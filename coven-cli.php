@@ -48,7 +48,7 @@ $jsonRaw = array();
 // Get data depending on whether cache exists or not 
 if(
     !file_exists(dirname(__FILE__) . CACHE) ||
-        $argv[1] === 'refresh'
+        (isset($argv[1]) && $argv[1] === 'refresh')
 ) {
     echo "Getting you the latest news from Coven!" . PHP_EOL;
     $jsonRaw = getOnlineData(); 
@@ -60,9 +60,10 @@ if(
 $jsonObject = json_decode($jsonRaw);
 
 // Open command
-if($argv[1] === 'open' || $argv[1] === 'opena') {
+if(isset($argv[1]) && ($argv[1] === 'open' || $argv[1] === 'opena')) {
     // If the second argv isn't empty and is an integer
     if(
+        isset($argv[2], $jsonObject[$argv[2] - 1]) &&
         !strlen($argv[2]) == 0 &&
             is_numeric($argv[2])
     ) {
